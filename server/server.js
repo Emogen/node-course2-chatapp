@@ -19,6 +19,19 @@ io.on('connection',(socket)=>{
 		console.log('User was disconnected');
 	});
 
+	//socket.emit from Admin text Welcome to chat App
+	io.emit('greetings',{
+		from: 'Admin',
+		text: 'Welcome to the chat App',
+		createdAt: new Date().getTime()
+	});
+	socket.broadcast.emit('greetings',{
+		from: 'Admin',
+		text: 'New user has joined the party',
+		createdAt: new Date().getTime()
+	});
+	//socket.broadcast.emit from text new User joined
+
 	socket.on('createMessage',(message)=>{
 		console.log('Message',message);
 		io.emit('newMessage',{
@@ -26,6 +39,12 @@ io.on('connection',(socket)=>{
 			text: message.text,
 			createdAt: new Date().getTime()
 		});
+
+		// socket.broadcast.emit('newMessage',{
+		// 	from: message.from,
+		// 	text:message.text,
+		// 	createdAt: new Date().getTime()
+		// });
 	});
 });
 
