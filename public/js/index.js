@@ -13,7 +13,3 @@ socket.on('disconnect',function() {
 socket.on('newMessage',function(message){
 	console.log('got new message ',message);
 });
-
-socket.on('greetings',function(message){
-	console.log('Message from server',message);
-})
