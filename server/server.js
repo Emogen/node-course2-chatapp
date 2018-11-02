@@ -18,6 +18,16 @@ io.on('connection',(socket)=>{
 	socket.on('disconnect',()=>{
 		console.log('User was disconnected');
 	});
+
+	socket.on('createMessage',(message)=>{
+		console.log('Message',message);
+	});
+
+	socket.emit('newMessage',{
+		from: 'Mike',
+		text: 'See You then',
+		createdAt: 123445
+	});
 });
 
 const port = process.env.PORT;
