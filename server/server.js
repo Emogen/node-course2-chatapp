@@ -4,7 +4,7 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
-const {generateMessage} = require('./utils/message');
+const {generateMessage,generateLocationMessage} = require('./utils/message');
 
 var publicPath = path.join(__dirname,'../public');
 var app = express();
@@ -18,6 +18,10 @@ io.on('connection',(socket)=>{
 
 	socket.on('disconnect',()=>{
 		console.log('User was disconnected');
+	});
+
+	socket.on('createLocationMessage',(coords)=>{
+		io.emit('newLocationMessage',generateLocationMessage('Admin',coords.latitude,coords.longitude));
 	});
 
 	//socket.emit from Admin text Welcome to chat App
@@ -39,5 +43,3 @@ server.listen(port,()=>{
 });
 
 module.exports = {app};
-
-
